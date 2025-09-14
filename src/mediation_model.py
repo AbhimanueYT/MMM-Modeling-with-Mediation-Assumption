@@ -12,10 +12,16 @@ from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from sklearn.model_selection import TimeSeriesSplit
 import joblib
 
-from .utils import (
-    set_random_seed, time_series_split, calculate_mape, 
-    calculate_rmse, calculate_r2
-)
+try:
+    from .utils import (
+        set_random_seed, time_series_split, calculate_mape, 
+        calculate_rmse, calculate_r2
+    )
+except ImportError:
+    from utils import (
+        set_random_seed, time_series_split, calculate_mape, 
+        calculate_rmse, calculate_r2
+    )
 
 warnings.filterwarnings('ignore')
 
@@ -279,12 +285,53 @@ class MediationMMM:
         if stage2_features is None:
             stage2_features = self.stage2_params['feature_names']
         
-        # Stage 1 predictions
-        X_social = data[social_cols].values
+        # Check for NaN values in input data and handle them
+        data_copy = data.copy()
+        
+        # Check which social columns actually exist in the data
+        existing_social_cols = [col for col in social_cols if col in data_copy.columns]
+        missing_social_cols = [col for col in social_cols if col not in data_copy.columns]
+        
+        if missing_social_cols:
+            print(f"Warning: Missing social columns: {missing_social_cols}")
+        
+        if existing_social_cols and data_copy[existing_social_cols].isnull().any().any():
+            print("Warning: NaN values detected in social features. Filling with 0.")
+            for col in existing_social_cols:
+                data_copy[col] = data_copy[col].fillna(0)
+        
+        # Check which stage2 columns actually exist in the data
+        existing_stage2_cols = [col for col in stage2_features if col in data_copy.columns]
+        missing_stage2_cols = [col for col in stage2_features if col not in data_copy.columns]
+        
+        if missing_stage2_cols:
+            print(f"Warning: Missing stage2 columns: {missing_stage2_cols}")
+        
+        if existing_stage2_cols and data_copy[existing_stage2_cols].isnull().any().any():
+            print("Warning: NaN values detected in stage2 features. Filling with 0.")
+            for col in existing_stage2_cols:
+                data_copy[col] = data_copy[col].fillna(0)
+        
+        # Stage 1 predictions - use the same features that were used during training
+        if hasattr(self, 'stage1_params') and 'feature_names' in self.stage1_params:
+            stage1_training_features = self.stage1_params['feature_names']
+            available_stage1_features = [col for col in stage1_training_features if col in data_copy.columns]
+            if len(available_stage1_features) != len(stage1_training_features):
+                print(f"Warning: Only {len(available_stage1_features)}/{len(stage1_training_features)} stage1 training features available")
+            X_social = data_copy[available_stage1_features].values
+        else:
+            X_social = data_copy[existing_social_cols].values
         google_pred = self.stage1_model.predict(X_social)
         
-        # Stage 2 predictions
-        X_stage2 = data[stage2_features].values
+        # Stage 2 predictions - use the same features that were used during training
+        if hasattr(self, 'stage2_params') and 'feature_names' in self.stage2_params:
+            stage2_training_features = self.stage2_params['feature_names']
+            available_stage2_features = [col for col in stage2_training_features if col in data_copy.columns]
+            if len(available_stage2_features) != len(stage2_training_features):
+                print(f"Warning: Only {len(available_stage2_features)}/{len(stage2_training_features)} stage2 training features available")
+            X_stage2 = data_copy[available_stage2_features].values
+        else:
+            X_stage2 = data_copy[existing_stage2_cols].values
         revenue_pred = self.stage2_model.predict(X_stage2)
         
         return {

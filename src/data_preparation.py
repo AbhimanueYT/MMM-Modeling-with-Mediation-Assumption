@@ -10,11 +10,18 @@ from datetime import datetime, timedelta
 from sklearn.preprocessing import StandardScaler, RobustScaler
 from sklearn.impute import SimpleImputer
 
-from .utils import (
-    set_random_seed, adstock_transform, saturation_transform,
-    create_weekly_seasonality, create_trend, check_stationarity,
-    detect_outliers_iqr, create_interaction_features
-)
+try:
+    from .utils import (
+        set_random_seed, adstock_transform, saturation_transform,
+        create_weekly_seasonality, create_trend, check_stationarity,
+        detect_outliers_iqr, create_interaction_features
+    )
+except ImportError:
+    from utils import (
+        set_random_seed, adstock_transform, saturation_transform,
+        create_weekly_seasonality, create_trend, check_stationarity,
+        detect_outliers_iqr, create_interaction_features
+    )
 
 warnings.filterwarnings('ignore')
 
@@ -238,6 +245,11 @@ class DataPreparator:
         
         # Handle missing values
         df = self._handle_missing_values(df)
+        
+        # Final check for any remaining NaN values
+        if df.isnull().any().any():
+            print("Warning: NaN values detected after preprocessing. Filling with 0.")
+            df = df.fillna(0)
         
         # Detect and handle outliers
         df = self._handle_outliers(df)

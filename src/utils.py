@@ -50,11 +50,22 @@ def saturation_transform(x: np.ndarray, saturation_point: float = 0.5,
     Returns:
         Saturated values
     """
+    # Handle edge case where all values are zero
+    if np.all(x == 0):
+        return np.zeros_like(x)
+    
     # Normalize x to [0, 1] range
-    x_norm = x / (x.max() + 1e-8)
+    x_max = x.max()
+    if x_max == 0:
+        return np.zeros_like(x)
+    
+    x_norm = x / x_max
     
     # Hill transformation
     saturated = (x_norm ** shape) / (x_norm ** shape + saturation_point ** shape)
+    
+    # Ensure no NaN values
+    saturated = np.nan_to_num(saturated, nan=0.0, posinf=1.0, neginf=0.0)
     
     return saturated
 

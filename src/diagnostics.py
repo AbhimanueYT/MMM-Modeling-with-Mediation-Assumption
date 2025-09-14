@@ -16,10 +16,16 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 
-from .utils import (
-    calculate_mape, calculate_rmse, calculate_r2, 
-    check_stationarity, detect_outliers_iqr
-)
+try:
+    from .utils import (
+        calculate_mape, calculate_rmse, calculate_r2, 
+        check_stationarity, detect_outliers_iqr
+    )
+except ImportError:
+    from utils import (
+        calculate_mape, calculate_rmse, calculate_r2, 
+        check_stationarity, detect_outliers_iqr
+    )
 
 warnings.filterwarnings('ignore')
 
