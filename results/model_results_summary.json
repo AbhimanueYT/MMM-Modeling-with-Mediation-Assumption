@@ -1,0 +1,146 @@
+{
+  "model_performance": {
+    "stage1_r2": 0.24981157478385385,
+    "stage1_rmse": 1606.133442398318,
+    "stage1_mape": 7182416283174.765,
+    "stage2_r2": 0.11598513115493492,
+    "stage2_rmse": 41556.028957091316,
+    "stage2_mape": 112544.9823441707
+  },
+  "cv_performance": {
+    "stage1_r2_mean": -1.2336946481831683,
+    "stage1_r2_std": 2.1806043941649262,
+    "stage2_r2_mean": -0.7036403203134005,
+    "stage2_r2_std": 0.9552881461531345
+  },
+  "mediation_effects": {
+    "facebook_spend": {
+      "direct_effect": 0,
+      "indirect_effect": -14.306187396644383,
+      "total_effect": -14.306187396644383,
+      "mediation_ratio": 1.0000000006989984
+    },
+    "tiktok_spend": {
+      "direct_effect": 0,
+      "indirect_effect": 14.026229938303505,
+      "total_effect": 14.026229938303505,
+      "mediation_ratio": 0.99999999928705
+    },
+    "instagram_spend": {
+      "direct_effect": 0,
+      "indirect_effect": -5.280917927584279,
+      "total_effect": -5.280917927584279,
+      "mediation_ratio": 1.0000000018936102
+    },
+    "snapchat_spend": {
+      "direct_effect": 0,
+      "indirect_effect": -5.517825995998852,
+      "total_effect": -5.517825995998852,
+      "mediation_ratio": 1.0000000018123079
+    },
+    "facebook_spend_ratio": {
+      "direct_effect": 0,
+      "indirect_effect": 205297.55060704998,
+      "total_effect": 205297.55060704998,
+      "mediation_ratio": 0.9999999999999513
+    },
+    "tiktok_spend_ratio": {
+      "direct_effect": 0,
+      "indirect_effect": 84120.30680979913,
+      "total_effect": 84120.30680979913,
+      "mediation_ratio": 0.9999999999998812
+    },
+    "instagram_spend_ratio": {
+      "direct_effect": 0,
+      "indirect_effect": 71249.64487008059,
+      "total_effect": 71249.64487008059,
+      "mediation_ratio": 0.9999999999998597
+    },
+    "snapchat_spend_ratio": {
+      "direct_effect": 0,
+      "indirect_effect": 80296.94946233532,
+      "total_effect": 80296.94946233532,
+      "mediation_ratio": 0.9999999999998755
+    },
+    "facebook_spend_adstock": {
+      "direct_effect": 0,
+      "indirect_effect": 9.500821028960273,
+      "total_effect": 9.500821028960273,
+      "mediation_ratio": 0.9999999989474593
+    },
+    "facebook_spend_saturated": {
+      "direct_effect": 0,
+      "indirect_effect": 927.7730573963756,
+      "total_effect": 927.7730573963756,
+      "mediation_ratio": 0.9999999999892215
+    },
+    "tiktok_spend_adstock": {
+      "direct_effect": 0,
+      "indirect_effect": -19.698038871024938,
+      "total_effect": -19.698038871024938,
+      "mediation_ratio": 1.0000000005076648
+    },
+    "tiktok_spend_saturated": {
+      "direct_effect": 0,
+      "indirect_effect": 48411.97779995409,
+      "total_effect": 48411.97779995409,
+      "mediation_ratio": 0.9999999999997935
+    },
+    "snapchat_spend_adstock": {
+      "direct_effect": 0,
+      "indirect_effect": 11.803119353086084,
+      "total_effect": 11.803119353086084,
+      "mediation_ratio": 0.9999999991527663
+    },
+    "snapchat_spend_saturated": {
+      "direct_effect": 0,
+      "indirect_effect": -38373.69609101525,
+      "total_effect": -38373.69609101525,
+      "mediation_ratio": 1.0000000000002605
+    },
+    "facebook_spend_x_promotions": {
+      "direct_effect": 0.0,
+      "indirect_effect": -0.0,
+      "total_effect": 0.0,
+      "mediation_ratio": -0.0
+    },
+    "tiktok_spend_x_promotions": {
+      "direct_effect": 0.0,
+      "indirect_effect": -0.0,
+      "total_effect": 0.0,
+      "mediation_ratio": -0.0
+    }
+  },
+  "feature_importance": {
+    "stage1": {
+      "facebook_spend": 0.4513060979530546,
+      "tiktok_spend": 0.44247449910608916,
+      "instagram_spend": 0.16659298507912843,
+      "snapchat_spend": 0.1740665385120196,
+      "facebook_spend_ratio": 6476.361165625419,
+      "tiktok_spend_ratio": 2653.677487396044,
+      "instagram_spend_ratio": 2247.6567876078025,
+      "snapchat_spend_ratio": 2533.0650252687296,
+      "facebook_spend_adstock": 0.29971496577320905,
+      "facebook_spend_saturated": 29.26773057773205,
+      "tiktok_spend_adstock": 0.6213986168177158,
+      "tiktok_spend_saturated": 1527.2147770280105,
+      "snapchat_spend_adstock": 0.37234376925363816,
+      "snapchat_spend_saturated": 1210.5449597937325,
+      "facebook_spend_x_promotions": 0.0,
+      "tiktok_spend_x_promotions": 0.0
+    },
+    "stage2": {
+      "google_spend": 0.14839151474845663,
+      "followers": 0.017182361302655293,
+      "average_price": 824.5286214538934,
+      "promotions": 0.0,
+      "email_volume": 0.061488852481514124,
+      "sms_volume": 2.3078348905049526,
+      "google_spend_x_average_price": 0.33689985574377046,
+      "facebook_spend_x_promotions": 0.0,
+      "tiktok_spend_x_promotions": 0.0,
+      "email_volume_x_sms_volume": 2.9826202408193644e-06
+    }
+  }
+}
